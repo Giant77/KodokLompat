@@ -17,7 +17,7 @@ Hardcore Difficulty (After Decreasing Monsters by 1%):
 
 ===================================================
 
-Scaled down :
+Scaled down (for 50):
 
 Easy Difficulty (After Scaling Down):
     Monsters: 43% of boxes (approximately 21 monsters)
