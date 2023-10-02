@@ -8,22 +8,23 @@ public class kodokLompat
     final int monsScore = -5;
     int point = 100;
     Random random = new Random();
-    int[] box = new int[boxSize];
+    int[] coin = new int[boxSize];
+    int[] mons = new int[boxSize];
 
     public kodokLompat(String difficulty) {
-        int mons = 3;
-        int coin = 2;
+        int monsCount = 3;
+        int coinCount = 2;
 
-        for (int i = 0, tmp; i < mons; i++) {
+        for (int i = 0, tmp; i < monsCount; i++) {
             tmp = random.nextInt(boxSize - 0);
-            box[tmp]-= 1;
+            mons[tmp]++;
             System.out.println(i + ": " + tmp);
         }
 
         System.out.println("\ncoin:");
-        for (int i = 0, tmp; i < coin; i++) {
+        for (int i = 0, tmp; i < coinCount; i++) {
             tmp = random.nextInt(boxSize - 0);
-            box[tmp]+= 2;
+            coin[tmp]++;
             System.out.println(i + ": " + tmp);
         }
 
@@ -34,8 +35,8 @@ public class kodokLompat
         
         System.out.println("arr:");
         
-        for (int i = 0; i < k.box.length; i++) {
-            System.out.println(i + ": " + k.box[i]);    
+        for (int i = 0; i < k.boxSize; i++) {
+            System.out.println(i + ": " + k.mons[i] + "; "+ k.coin[i]);    
         }
 
     }
