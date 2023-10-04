@@ -5,8 +5,8 @@ import java.util.Arrays;
 public class kodokLompat 
 {
     final int boxSize = 300;
-    final int coinScore = 10;
-    final int monsScore = -5;
+    int coinScore = 10;
+    int monsScore = -5;
     int point = 100;
     Random random = new Random();
     Scanner in = new Scanner(System.in);
@@ -32,20 +32,20 @@ public class kodokLompat
         
         if (diff == 1) {
             System.out.println("Tingkat kesulitan: Easy");
-            monsCount = 150;
-            coinCount = 100;
+            monsCount = 120;
+            coinCount = 150;
         } else if (diff == 2) {
             System.out.println("Tingkat kesulitan: Normal");
-            monsCount = 180;
-            coinCount = 95;
+            monsCount = 150;
+            coinCount = 130;
         } else if (diff == 3) {
             System.out.println("Tingkat kesulitan: Hard");
-            monsCount = 210;
-            coinCount = 80;
+            monsCount = 170;
+            coinCount = 110;
         } else {
             System.out.println("Tingkat kesulitan: Hardcore");
-            monsCount = 225;
-            coinCount = 70;
+            monsCount = 190;
+            coinCount = 95;
         }
 
 
@@ -55,6 +55,7 @@ public class kodokLompat
             tmp = random.nextInt(boxSize - 0);
             if (boxes[tmp] == 0){
                 boxes[tmp]--;
+
                 i++;
             }
         }
@@ -102,7 +103,41 @@ public class kodokLompat
             System.out.println("Luar biasa! Anda adalah juara Hardcore sejati!");
         } 
     }
-       
+
+    private static int coinMsg (){
+        Random rand = new Random();
+        kodokLompat k1 = new kodokLompat();
+
+        k1.coinScore = rand.nextInt(15 - 1) + 1;
+        
+        if (k1.coinScore <= 5) {
+            System.out.println("\nHmmm?!\nAnda menemukan Coin kecil");
+        } else if (k1.coinScore > 5 && k1.coinScore <= 10) {
+            System.out.println("\nWah!\nAnda menemukan Coin");
+        } else {
+            System.out.println("\nLuar biasa!\nAnda menemukan Coin besar");
+        }
+        System.out.println("Point anda bertambah " + k1.coinScore);
+        return k1.coinScore;
+    }
+
+    private static int monsMsg (){
+    Random rand = new Random();
+    kodokLompat k2 = new kodokLompat();
+
+    k2.monsScore = (rand.nextInt(15 - 1) + 1) * -1;
+    
+    if (k2.monsScore >= -5) {
+        System.out.println("\nHmmm?!\nAnda bertemu Monster kroco");
+    } else if (k2.monsScore < -5 && k2.monsScore >= -10) {
+        System.out.println("\nAwas!\nAnda bertemu Monster");
+    } else {
+        System.out.println("\nHati-hati!\nAnda bertemu Monster elit");
+    }
+    System.out.println("Point anda berkurang " + k2.monsScore);
+    return k2.monsScore;
+}
+
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -172,13 +207,17 @@ public class kodokLompat
                 // Scoring
             if (k.boxes[i] > 0) {
                 System.out.println("Sekarang anda berada pada kotak ke-"+ (i+1));
-                System.out.println("Wah!\nAnda menemukan Coin");
+                // System.out.println("\nWah!\nAnda menemukan Coin");
+                k.coinScore = coinMsg();
+
                 System.out.println("Point anda sekarang: " + (k.point += k.coinScore));
                 
                 k.boxes[i] = 0;
             } else if (k.boxes[i] < 0) {
                 System.out.println("Sekarang anda berada pada kotak ke-"+ (i+1));
-                System.out.println("Awas!\nAnda bertemu Monster");
+                // System.out.println("\nAwas!\nAnda bertemu Monster");
+
+                k.monsScore = monsMsg();
                 System.out.println("Point anda sekarang: " + (k.point += k.monsScore));
 
                 k.boxes[i] = 0;
@@ -193,7 +232,7 @@ public class kodokLompat
                 System.out.println("GAME OVER!");
                 System.out.println("Point akhir anda " + k.point);
                 
-                while (true) {      //ask replay
+                while (true) {      //ask play again
                     askPlayAgain();
                     replay = in.nextInt();
 
