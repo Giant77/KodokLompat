@@ -1,19 +1,20 @@
 Easy Difficulty (After Previous Changes - No further adjustments):
-    Monsters: 57% of boxes (approximately 171 monsters)
-    Coins: 18% of boxes (approximately 54 coins)
+    Monsters: 43% of boxes (approximately 129 monsters)
+    Coins: 27% of boxes (approximately 82 coins)
 
-Normal Difficulty (After Previous Changes - No further adjustments):
-    Monsters: 52% of boxes (approximately 156 monsters)
-    Coins: 22% of boxes (approximately 66 coins)
-
-Hard Difficulty (After Previous Changes - No further adjustments):
-    Monsters: 55% of boxes (approximately 165 monsters)
+Normal Difficulty (After Reducing Monsters by 7%):
+    Monsters: 53% of boxes (approximately 159 monsters)
     Coins: 25% of boxes (approximately 75 coins)
 
-Hardcore Difficulty (After Decreasing Monsters by 1%):
-    Monsters: 56% of boxes (approximately 168 monsters)
+Hard Difficulty (After Reducing Monsters by 7% and Increasing Coins by 2%):
+    Monsters: 55% of boxes (approximately 165 monsters)
+    Coins: 22% of boxes (approximately 66 coins)
+
+Hardcore Difficulty (After Previous Changes - No further adjustments):
+    Monsters: 59% of boxes (approximately 177 monsters)
     Coins: 18% of boxes (approximately 54 coins)
 
+All += 30%
 
 ===================================================
 

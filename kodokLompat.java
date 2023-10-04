@@ -4,22 +4,22 @@ import java.util.Arrays;
 
 public class kodokLompat 
 {
-    final int boxSize = 10;
+    final int boxSize = 30;
     final int coinScore = 10;
     final int monsScore = -5;
     int point = 100;
     Random random = new Random();
+    Scanner in = new Scanner(System.in);
     int[] coin = new int[boxSize];
     int[] mons = new int[boxSize];
-
-    void init () {
+    
+    private void init () {
         int monsCount;
         int coinCount;
         int diff;
-        Scanner in = new Scanner(System.in);
-
+        
         while (true) {
-            System.out.println("Silahkan pilih tingkat kesulitan (Angka)");
+            System.out.println("\nSilahkan pilih tingkat kesulitan (Angka)");
             System.out.println("1. Easy\n2. Normal\n3. Hard\n4. Hardcore\n");
 
             diff = in.nextInt();
@@ -28,26 +28,25 @@ public class kodokLompat
             } else {
                 System.out.println("Tingkat kesulitan yang anda pilih invalid\nSilahkan coba lagi\n");
             }
-
-            in.close();
+            
         }
-
+        
         if (diff == 1) {
             System.out.println("Tingkat kesulitan: Easy");
-            monsCount = 3;
-            coinCount = 2;
+            monsCount = 168;
+            coinCount = 106;
         } else if (diff == 2) {
-            System.out.println("Tinkat kesulitan: Normal");
-            monsCount = 156;
-            coinCount = 75;
+            System.out.println("Tingkat kesulitan: Normal");
+            monsCount = 206;
+            coinCount = 97;
         } else if (diff == 3) {
             System.out.println("Tingkat kesulitan: Hard");
-            monsCount = 165;
-            coinCount = 66;
+            monsCount = 214;
+            coinCount = 86;
         } else {
             System.out.println("Tingkat kesulitan: Hardcore");
-            monsCount = 177;
-            coinCount = 45;
+            monsCount = 230;
+            coinCount = 70;
         }
 
 
@@ -63,18 +62,39 @@ public class kodokLompat
 
     }
 
-    static void askMovement (int i){
+    private static void askMovement (int i){
         System.out.println("\nKemana anda akan melompat? (Angka)");
         System.out.println("1. Lompat 1 kotak\n2. Lompat 2 kotak");
         System.out.println("3. Lompat mundur 1 kotak\n4. Lompat mundur 2 kotak");
     }
 
-    static void askPlayAgain () {
+    private static void askPlayAgain () {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
         System.out.println("Permainan telah selesai!");
         System.out.println("Apakah anda ingin bermain lagi?");
         System.out.println("1. Main lagi\n2. Exit");
     }
 
+    private static void congratsMsg(int diff, int pointAkhir) {
+        if (pointAkhir <= 0) {
+            System.out.println("Sayang sekali! Anda hanya kurang beruntung.");
+        } else if (pointAkhir > 0 && pointAkhir <= 80) {
+            System.out.println("Cukup baik! Anda masih bisa lebih baik lagi!");
+        } else if (pointAkhir > 80 && pointAkhir <= 150) {
+            System.out.println("Sangat baik! Bisakah Anda melakukan lebih baik lagi?");
+        }
+
+        if (diff == 1 && pointAkhir > 150) {
+            System.out.println("Hebat! Anda telah menguasai tingkat Easy!");
+        } else if (diff == 2 && pointAkhir > 150){
+            System.out.println("Luar biasa! Anda telah mengatasi tingkat Normal!");
+        } else if (diff == 3 && pointAkhir > 150) {
+            System.out.println("Bravo! Anda telah menguasai tingkat Hard!");
+        } else if (diff == 4 && pointAkhir > 150) {
+            System.out.println("Luar biasa! Anda adalah juara Hardcore sejati!");
+        } 
+    }
+       
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -83,7 +103,7 @@ public class kodokLompat
         int replay = 0;
         kodokLompat k = new kodokLompat();
         
-        System.out.println("Selamat datang pada permainan Lompat hai katak, lompat!\n");
+        System.out.println("Selamat datang pada permainan Lompat hai katak, lompat!");
 
 
         k.init();
@@ -119,6 +139,7 @@ public class kodokLompat
             } else {            // end of box, ask replay
                 System.out.println("\nAnda telah mencapai kotak terakhir!");
                 System.out.println("Point akhir anda " + k.point);
+                congratsMsg(k.point, k.point);
 
                 while (true) {      //ask replay
                     askPlayAgain();
@@ -170,7 +191,7 @@ public class kodokLompat
             if (k.point <= 0) {
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                 System.out.println("GAME OVER!");
-                System.out.println("Point akhir anda " + k.point + " bernilai lebih kecil daripada skor minimum 1");
+                System.out.println("Point akhir anda " + k.point);
                 
                 while (true) {      //ask replay
                     askPlayAgain();
@@ -197,5 +218,6 @@ public class kodokLompat
         }
 
         in.close();
+        
     }
 }
