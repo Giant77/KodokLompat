@@ -2,16 +2,54 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Arrays;
 
+/**
+ * Class kodok lompat berisi sebuah minigame tentang kodok yang melompati kotak-
+ * kotak untuk mengumpulkan point. masing-masing kotak dapat berisi coin ataupun
+ * monster yang akan mengubah poin dari pemain.
+ */
 public class kodokLompat 
 {
+    /**
+     * Banyak Kotak dalam permainan.
+     */
     final int boxSize = 300;
+    
+    /**
+     * Point default yang didapat saat menemukan coin.
+     */
     int coinScore = 10;
+    
+    /**
+     * Point default yang dikurang saat bertemu monster.
+     */
     int monsScore = -5;
+    
+    /**
+     * Point default dari pemain.
+     */
     int point = 100;
+    
+    /**
+     * Pengahasil nilai acak untuk mengacak point, dan lokasi monster dan coin.
+     */
     Random random = new Random();
+    
+    /**
+     * Objek scanner untuk membaca input.
+     */
     Scanner in = new Scanner(System.in);
+    
+    /**
+     * Array yang mewakili isi dari setiap kotak yang ada.
+     * Nilai positif menandakan coin, nilai negatif menandakan monster,
+     * dan nilai 0 menandakan kotak yang kosong.
+     */
     int[] boxes = new int[boxSize];
     
+    /**
+     * Menginisialisasikan permainan dengan menanyakan tingkat kesulitan
+     * dan men-setup setiap kotak.
+     */
     private void init () {
         int monsCount;
         int coinCount;
@@ -27,9 +65,9 @@ public class kodokLompat
             } else {
                 System.out.println("Tingkat kesulitan yang anda pilih invalid\nSilahkan coba lagi\n");
             }
-            
         }
         
+        // Menyetel tingkat kesulitan sesuai dengan input pemain
         if (diff == 1) {
             System.out.println("Tingkat kesulitan: Easy");
             monsCount = 120;
@@ -48,14 +86,13 @@ public class kodokLompat
             coinCount = 95;
         }
 
-
+        // Mengisi kotak dengan monster dan coin secara acak
         int i = 0;
         int tmp = 0;
         while (i < monsCount) {
             tmp = random.nextInt(boxSize - 0);
             if (boxes[tmp] == 0){
                 boxes[tmp]--;
-
                 i++;
             }
         }
@@ -68,15 +105,23 @@ public class kodokLompat
                 i++;
             }
         }
-    
     }
 
+    /**
+     * Menanyakan pemain pergerakan katak selanjutnya
+     * dan memperbarui lokasi katak saat ini.
+     * @param i menandakan posisi katak saat ini dalam permainan.
+     */
     private static void askMovement (int i){
         System.out.println("\nKemana anda akan melompat? (Angka)");
         System.out.println("1. Lompat 1 kotak\n2. Lompat 2 kotak");
         System.out.println("3. Lompat mundur 1 kotak\n4. Lompat mundur 2 kotak");
     }
 
+    /**
+     * Menanyakan apakah pemain ingin bermain lagi
+     * ataupun keluar dari permainan 
+     */
     private static void askPlayAgain () {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
         System.out.println("Permainan telah selesai!");
@@ -84,6 +129,11 @@ public class kodokLompat
         System.out.println("1. Main lagi\n2. Exit");
     }
 
+    /**
+     * Menampilkan pesan selamat berdasarkan point akhir dari pemain dan tingkat kesulitan
+     * @param diff Menunjukkan tingkat kesulitan.
+     * @param pointAkhir Menunjukkan point akhir dari pemain.
+     */
     private static void congratsMsg(int diff, int pointAkhir) {
         if (pointAkhir <= 0) {
             System.out.println("Sayang sekali! Anda hanya kurang beruntung.");
@@ -104,6 +154,11 @@ public class kodokLompat
         } 
     }
 
+    /**
+     * Mensimulasi proses menemukan coin dalam permainan
+     * dan mengembalikan point dari coin tersebut
+     * @return Point dari coin yang ditemukan.
+     */
     private static int coinMsg (){
         Random rand = new Random();
         kodokLompat k1 = new kodokLompat();
@@ -121,24 +176,32 @@ public class kodokLompat
         return k1.coinScore;
     }
 
+    /**
+     * Mensimulai proses bertemu monster dalam permainan
+     * dan mengembalikan point yang akan berkurang.
+     * @return Mengembaikan point yang akan dikurang.
+     */
     private static int monsMsg (){
-    Random rand = new Random();
-    kodokLompat k2 = new kodokLompat();
+        Random rand = new Random();
+        kodokLompat k2 = new kodokLompat();
 
-    k2.monsScore = (rand.nextInt(15 - 1) + 1) * -1;
+        k2.monsScore = (rand.nextInt(15 - 1) + 1) * -1;
     
-    if (k2.monsScore >= -5) {
-        System.out.println("\nHmmm?!\nAnda bertemu Monster kroco");
-    } else if (k2.monsScore < -5 && k2.monsScore >= -10) {
-        System.out.println("\nAwas!\nAnda bertemu Monster");
-    } else {
-        System.out.println("\nHati-hati!\nAnda bertemu Monster elit");
+        if (k2.monsScore >= -5) {
+            System.out.println("\nHmmm?!\nAnda bertemu Monster kroco");
+        } else if (k2.monsScore < -5 && k2.monsScore >= -10) {
+            System.out.println("\nAwas!\nAnda bertemu Monster");
+        } else {
+            System.out.println("\nHati-hati!\nAnda bertemu Monster elit");
+        }
+        System.out.println("Point anda berkurang " + k2.monsScore);
+        return k2.monsScore;
     }
-    System.out.println("Point anda berkurang " + k2.monsScore);
-    return k2.monsScore;
-}
 
-
+    /**
+     * Masuk kedalam bagian main dari permainan
+     * @param args Argumen command line (tidak digunakan).
+     */
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int i = 0;
@@ -148,7 +211,6 @@ public class kodokLompat
         
         System.out.println("Selamat datang pada permainan Lompat hai katak, lompat!");
 
-
         k.init();
         
         System.out.println("==============================================");
@@ -156,7 +218,7 @@ public class kodokLompat
         
         while (i < k.boxSize) {
             
-            if (i < k.boxSize - 1) {        // ask movement
+            if (i < k.boxSize - 1) {
                 askMovement(i);
                 lompat = in.nextInt();
                 System.out.println("______________________________________________\n");
@@ -179,12 +241,12 @@ public class kodokLompat
                     System.out.println("Opsi yang anda pilih invalid\nSilahkan coba lagi: ");
                     continue;
                 }                
-            } else {            // end of box, ask replay
+            } else {
                 System.out.println("\nAnda telah mencapai kotak terakhir!");
                 System.out.println("Point akhir anda " + k.point);
                 congratsMsg(k.point, k.point);
 
-                while (true) {      //ask replay
+                while (true) {
                     askPlayAgain();
                     replay = in.nextInt();
 
@@ -204,10 +266,9 @@ public class kodokLompat
                     break;
                 }
             } 
-                // Scoring
+
             if (k.boxes[i] > 0) {
                 System.out.println("Sekarang anda berada pada kotak ke-"+ (i+1));
-                // System.out.println("\nWah!\nAnda menemukan Coin");
                 k.coinScore = coinMsg();
 
                 System.out.println("Point anda sekarang: " + (k.point += k.coinScore));
@@ -215,8 +276,6 @@ public class kodokLompat
                 k.boxes[i] = 0;
             } else if (k.boxes[i] < 0) {
                 System.out.println("Sekarang anda berada pada kotak ke-"+ (i+1));
-                // System.out.println("\nAwas!\nAnda bertemu Monster");
-
                 k.monsScore = monsMsg();
                 System.out.println("Point anda sekarang: " + (k.point += k.monsScore));
 
@@ -252,10 +311,8 @@ public class kodokLompat
                     break;
                 }
             } 
-
         }
 
         in.close();
-        
     }
 }
