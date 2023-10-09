@@ -7,51 +7,24 @@ import java.util.Arrays;
  * kotak untuk mengumpulkan point. masing-masing kotak dapat berisi coin ataupun
  * monster yang akan mengubah poin dari pemain.
  */
-public class kodokLompat 
-{
-    /**
-     * Banyak Kotak dalam permainan.
-     */
-    final int boxSize = 300;
-    
-    /**
-     * Point default yang didapat saat menemukan coin.
-     */
-    int coinScore = 10;
-    
-    /**
-     * Point default yang dikurang saat bertemu monster.
-     */
-    int monsScore = -5;
-    
-    /**
-     * Point default dari pemain.
-     */
-    int point = 100;
-    
+public class KodokLompat 
+{    
     /**
      * Pengahasil nilai acak untuk mengacak point, dan lokasi monster dan coin.
      */
     Random random = new Random();
-    
+
     /**
      * Objek scanner untuk membaca input.
      */
     Scanner in = new Scanner(System.in);
-    
-    /**
-     * Array yang mewakili isi dari setiap kotak yang ada.
-     * Nilai positif menandakan coin, nilai negatif menandakan monster,
-     * dan nilai 0 menandakan kotak yang kosong.
-     */
-    int[] boxes = new int[boxSize];
-    
+
     /**
      * Menginisialisasikan permainan dengan menanyakan tingkat kesulitan
      * dan men-setup setiap kotak.
      * @return Mengembalikan tingkat kesulitan yang dipilih 
      */
-    private int init () {
+    private int init (int boxSize, int[] boxes) {
         int monsCount;
         int coinCount;
         int diff;
@@ -67,7 +40,7 @@ public class kodokLompat
                 System.out.println("Tingkat kesulitan yang anda pilih invalid\nSilahkan coba lagi\n");
             }
         }
-        
+    
         // Menyetel tingkat kesulitan sesuai dengan input pemain
         if (diff == 1) {
             System.out.println("Tingkat kesulitan: Easy");
@@ -161,21 +134,19 @@ public class kodokLompat
      * dan mengembalikan point dari coin tersebut
      * @return Point dari coin yang ditemukan.
      */
-    private static int coinMsg (){
+    private static int coinMsg (int coinScore){
         Random rand = new Random();
-        kodokLompat k1 = new kodokLompat();
-
-        k1.coinScore = rand.nextInt(15 - 1) + 1;
+        coinScore = rand.nextInt(15 - 1) + 1;
         
-        if (k1.coinScore <= 5) {
+        if (coinScore <= 5) {
             System.out.println("\nHmmm?!\nAnda menemukan Coin kecil");
-        } else if (k1.coinScore > 5 && k1.coinScore <= 10) {
+        } else if (coinScore > 5 && coinScore <= 10) {
             System.out.println("\nWah!\nAnda menemukan Coin");
         } else {
             System.out.println("\nLuar biasa!\nAnda menemukan Coin besar");
         }
-        System.out.println("Point anda bertambah " + k1.coinScore);
-        return k1.coinScore;
+        System.out.println("Point anda bertambah " + coinScore);
+        return coinScore;
     }
 
     /**
@@ -183,21 +154,19 @@ public class kodokLompat
      * dan mengembalikan point yang akan berkurang.
      * @return Mengembaikan point yang akan dikurang.
      */
-    private static int monsMsg (){
+    private static int monsMsg (int monsScore){
         Random rand = new Random();
-        kodokLompat k2 = new kodokLompat();
-
-        k2.monsScore = (rand.nextInt(15 - 1) + 1) * -1;
+        monsScore = (rand.nextInt(15 - 1) + 1) * -1;
     
-        if (k2.monsScore >= -5) {
+        if (monsScore >= -5) {
             System.out.println("\nHmmm?!\nAnda bertemu Monster kroco");
-        } else if (k2.monsScore < -5 && k2.monsScore >= -10) {
+        } else if (monsScore < -5 && monsScore >= -10) {
             System.out.println("\nAwas!\nAnda bertemu Monster");
         } else {
             System.out.println("\nHati-hati!\nAnda bertemu Monster elit");
         }
-        System.out.println("Point anda berkurang " + k2.monsScore);
-        return k2.monsScore;
+        System.out.println("Point anda berkurang " + monsScore);
+        return monsScore;
     }
 
     /**
@@ -210,18 +179,24 @@ public class kodokLompat
         int lompat;
         int replay = 0;
         int difficulty;
-        kodokLompat k = new kodokLompat();
+        KodokLompat k = new KodokLompat();
+        final int boxSize = 300;
+        int coinScore = 10;
+        int monsScore = -5;
+        int point = 100;
+        int[] boxes = new int[boxSize];
+
         
         System.out.println("Selamat datang pada permainan Lompat hai katak, lompat!");
 
-        difficulty = k.init();
+        difficulty = k.init(boxSize, boxes);
         
         System.out.println("==============================================");
         System.out.println("Permainan dimulai:");
         
-        while (i < k.boxSize) {
+        while (i < boxSize) {
             
-            if (i < k.boxSize - 1) {
+            if (i < boxSize - 1) {
                 askMovement(i);
                 lompat = in.nextInt();
                 System.out.println("______________________________________________\n");
@@ -229,8 +204,8 @@ public class kodokLompat
                 if (lompat == 1) {
                     i += 1;
                 } else if (lompat == 2) {
-                    if ((i += 2) >= k.boxSize){
-                        i = k.boxSize - 1;
+                    if ((i += 2) >= boxSize){
+                        i = boxSize - 1;
                     }
                 } else if (lompat == 3) {
                     if ((i -= 1) <= 0) {
@@ -246,8 +221,8 @@ public class kodokLompat
                 }                
             } else {
                 System.out.println("\nAnda telah mencapai kotak terakhir!");
-                System.out.println("Point akhir anda " + k.point);
-                congratsMsg(difficulty, k.point);
+                System.out.println("Point akhir anda " + point);
+                congratsMsg(difficulty, point);
 
                 while (true) {
                     askPlayAgain();
@@ -257,42 +232,43 @@ public class kodokLompat
                         break;
                     } else {
                         System.out.println("Input invalid!\nSilahkan coba lagi");
-                    }                
+                    }
                 }
                 
                 if (replay == 1) {
-                    k.point = 100;
+                    point = 100;
                     i = 0;
-                    Arrays.fill(k.boxes, 0);
-                    difficulty = k.init();
+                    Arrays.fill(boxes, 0);
+                    difficulty = k.init(boxSize, boxes);
                 } else if (replay == 2) {
                     break;
                 }
             } 
 
-            if (k.boxes[i] > 0) {
+            if (boxes[i] > 0) {
                 System.out.println("Sekarang anda berada pada kotak ke-"+ (i+1));
-                k.coinScore = coinMsg();
+                coinScore = coinMsg(coinScore);
 
-                System.out.println("Point anda sekarang: " + (k.point += k.coinScore));
+                System.out.println("Point anda sekarang: " + (point += coinScore));
                 
-                k.boxes[i] = 0;
-            } else if (k.boxes[i] < 0) {
+                boxes[i] = 0;
+            } else if (boxes[i] < 0) {
                 System.out.println("Sekarang anda berada pada kotak ke-"+ (i+1));
-                k.monsScore = monsMsg();
-                System.out.println("Point anda sekarang: " + (k.point += k.monsScore));
+                monsScore = monsMsg(monsScore);
+                System.out.println("Point anda sekarang: " + (point += monsScore));
 
-                k.boxes[i] = 0;
+                boxes[i] = 0;
             } else {
                 System.out.println("Sekarang anda berada pada kotak ke-"+ (i+1));
                 System.out.println("Zonk!\nAnda tidak menemukan apapun");
-                System.out.println("Point anda sekarang: " + k.point);
+                System.out.println("Point anda sekarang: " + point);
             }
 
-            if (k.point <= 0) {
+            if (point <= 0) {
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                 System.out.println("GAME OVER!");
-                System.out.println("Point akhir anda " + k.point);
+                System.out.println("Point akhir anda " + point);
+                congratsMsg(difficulty, point);
                 
                 while (true) {      //ask play again
                     askPlayAgain();
@@ -306,10 +282,10 @@ public class kodokLompat
                 }
                 
                 if (replay == 1) {
-                    k.point = 100;
+                    point = 100;
                     i = 0;
-                    Arrays.fill(k.boxes, 0);
-                    difficulty = k.init();
+                    Arrays.fill(boxes, 0);
+                    difficulty = k.init(boxSize, boxes);
                 } else if (replay == 2) {
                     break;
                 }
