@@ -243,7 +243,7 @@ public class KodokLompat
                 } else if (replay == 2) {
                     break;
                 }
-            } 
+            }
 
             if (boxes[i] > 0) {
                 System.out.println("Sekarang anda berada pada kotak ke-"+ (i+1));
