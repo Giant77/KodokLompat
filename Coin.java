@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Coin {
+public class Coin extends Item {
     private int coinPoint;
 
     /**

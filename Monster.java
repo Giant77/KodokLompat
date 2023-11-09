@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Monster {
+public class Monster extends Item {
     private int monsPoint;
 
     /**
