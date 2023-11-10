@@ -51,7 +51,8 @@ public class Kotak {
     public void setDiff() {
         while (true) {
             System.out.println("\nSilahkan pilih tingkat kesulitan (Angka)");
-            System.out.println("1. Easy\n2. Normal\n3. Hard\n4. Hardcore\n");
+            System.out.println("1. Easy\n2. Normal\n3. Hard\n4. Hardcore");
+            System.out.print("Input: ");
 
             diff = in.nextInt();
             if (diff >= 1 && diff <= 4) {
