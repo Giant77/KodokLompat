@@ -1,10 +1,23 @@
 import java.util.Scanner;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Game {
     private int i = 0;  // iteration/position variable
     private int lompat; // movement input variable
     private int replay; // play again input variabel
+    private int countPlayAgain = 1; // count how many times games have been playe in a single instance 
+    private boolean isDataInputed = true; 
     private Scanner in = new Scanner(System.in);
+    private List <String> data = new ArrayList<>();
+    private Map<Integer, String> diffMap = new HashMap<Integer, String>() {{
+        put(1, "Easy");
+        put(2, "Normal");
+        put(3, "Hard");
+        put(4, "Hardcore");
+    }};
     Monster mons = new Monster();
     Coin koin = new Coin();
     Kotak kotak = new Kotak();
@@ -22,17 +35,18 @@ public class Game {
      * Menanyakan dan meminta apakah pemain ingin bermain lagi
      * dan dijalankan sesuai input yang diterima
      */
-    public void askPlayAgain () {
+    public void askPlayAgain (int difficulty) {
         // akan keluar dari loop jika input yang diterima adalah angka yang valid
         while (true) {
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
             System.out.println("Permainan telah selesai!");
             System.out.println("Apakah anda ingin bermain lagi?");
-            System.out.println("1. Main lagi\n2. Exit");
+            System.out.println("1. Main lagi\n2. Lihat skor\n3. Exit");
+            System.out.print("Input: ");
 
             replay = in.nextInt();
 
-            if (replay == 1 || replay == 2) {
+            if (replay >= 1 && replay <= 3) {
                 break;
             } else {
                 System.out.println("Input invalid!\nSilahkan coba lagi");
@@ -44,7 +58,17 @@ public class Game {
             kotak = new Kotak();
             kotak.init();
             i = 0;
+            isDataInputed = true;
+
         } else if (replay == 2) {
+            System.out.println("\n\n+" + "=".repeat(56) + "+");
+            System.out.println("| Permainan ke \t     Tingkat Kesulitan       Skor Akhir\t |");
+            for (int i = 0; i < data.size(); i++) {
+                System.out.println(data.get(i));
+            }
+            System.out.println("+" + "=".repeat(56) + "+\n");
+
+        } else if (replay == 3) {
             System.exit(0);
         }
 
@@ -77,6 +101,12 @@ public class Game {
         } 
     }
 
+    public void inputData(int difficulty) {
+        data.add("|     " + countPlayAgain + "\t\t\t   " + diffMap.get(difficulty) + "   \t\t" + Integer.toString(kotak.getPoint()) + "\t |");
+        isDataInputed = false;
+        countPlayAgain++;
+    }
+
     /**
      * logika utama permainan kodok lompat
      * 
@@ -86,8 +116,25 @@ public class Game {
     public void movement(int boxSize, int difficulty) {
         while (i < boxSize) {
             
+
+            if (kotak.getPoint() <= 0) {
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                System.out.println("GAME OVER!");
+                System.out.println("Point akhir anda " + kotak.getPoint());
+                congratsMsg(difficulty, kotak.getPoint());
+
+                if (isDataInputed) {
+                    inputData(kotak.getDiff());
+                }
+                while (kotak.getPoint() <= 0){
+                    askPlayAgain(difficulty);
+                }
+                
+            }
+
             if (i < boxSize - 1) {
                 askMovement();
+                System.out.print("Input: ");
                 lompat = in.nextInt();
                 System.out.println("______________________________________________\n");
                 
@@ -117,9 +164,14 @@ public class Game {
             } else {    // jika berada pada kotak terakhir, maka permainan selesai
                 System.out.println("\nAnda telah mencapai kotak terakhir!");
                 System.out.println("Point akhir anda " + kotak.getPoint());
-                congratsMsg(difficulty, kotak.getPoint());
 
-                askPlayAgain();
+                congratsMsg(difficulty, kotak.getPoint());
+                if (isDataInputed) {
+                    inputData(kotak.getDiff());
+                }                
+                askPlayAgain(difficulty);
+
+                continue;
             }
 
             // menampilkan pesan berdasarkan isi dari kotak dan posisi sekarang
@@ -141,14 +193,6 @@ public class Game {
                 System.out.println("Point anda sekarang: " + kotak.getPoint());
             }
 
-            if (kotak.getPoint() <= 0) {
-                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-                System.out.println("GAME OVER!");
-                System.out.println("Point akhir anda " + kotak.getPoint());
-                congratsMsg(difficulty, kotak.getPoint());
-
-                askPlayAgain();
-            }
 
         }
     }

@@ -34,7 +34,7 @@ public class Coin extends Item {
         } else {
             System.out.println("\nLuar biasa!\nAnda menemukan Coin besar");
         }
-        System.out.println("coinPoint anda bertambah " + coinPoint);
+        System.out.println("Point anda bertambah " + coinPoint);
         return coinPoint;
     }
 
