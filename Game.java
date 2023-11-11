@@ -35,7 +35,7 @@ public class Game {
      * Menanyakan dan meminta apakah pemain ingin bermain lagi
      * dan dijalankan sesuai input yang diterima
      */
-    public void askPlayAgain (int difficulty) {
+    public void askPlayAgain () {
         // akan keluar dari loop jika input yang diterima adalah angka yang valid
         while (true) {
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -44,7 +44,13 @@ public class Game {
             System.out.println("1. Main lagi\n2. Lihat skor\n3. Exit");
             System.out.print("Input: ");
 
-            replay = in.nextInt();
+            try {
+                replay = in.nextInt();
+            } catch (Exception e) {
+                System.out.println("\nTerjadi error!\nPesan error: " + e);
+                in.nextLine();
+                continue;
+            }
 
             if (replay >= 1 && replay <= 3) {
                 break;
@@ -121,13 +127,13 @@ public class Game {
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                 System.out.println("GAME OVER!");
                 System.out.println("Point akhir anda " + kotak.getPoint());
-                congratsMsg(difficulty, kotak.getPoint());
+                congratsMsg(kotak.getDiff(), kotak.getPoint());
 
                 if (isDataInputed) {
                     inputData(kotak.getDiff());
                 }
                 while (kotak.getPoint() <= 0){
-                    askPlayAgain(difficulty);
+                    askPlayAgain();
                 }
                 
             }
@@ -135,7 +141,15 @@ public class Game {
             if (i < boxSize - 1) {
                 askMovement();
                 System.out.print("Input: ");
-                lompat = in.nextInt();
+
+                try {
+                    lompat = in.nextInt();
+                } catch (Exception e) {
+                    System.out.println("\nTerjadi error!\nPesan error: " + e);
+                    in.nextLine();
+                    continue;
+                }
+
                 System.out.println("______________________________________________\n");
                 
                 // pergerakan kodok tergantung dari input user
@@ -165,11 +179,11 @@ public class Game {
                 System.out.println("\nAnda telah mencapai kotak terakhir!");
                 System.out.println("Point akhir anda " + kotak.getPoint());
 
-                congratsMsg(difficulty, kotak.getPoint());
+                congratsMsg(kotak.getDiff(), kotak.getPoint());
                 if (isDataInputed) {
                     inputData(kotak.getDiff());
                 }                
-                askPlayAgain(difficulty);
+                askPlayAgain();
 
                 continue;
             }

@@ -54,7 +54,14 @@ public class Kotak {
             System.out.println("1. Easy\n2. Normal\n3. Hard\n4. Hardcore");
             System.out.print("Input: ");
 
-            diff = in.nextInt();
+            try {
+                diff = in.nextInt();
+            } catch (Exception e) {
+                System.out.println("\nTerjadi error!\nPesan error: " + e);
+                in.nextLine();
+                continue;
+            }
+
             if (diff >= 1 && diff <= 4) {
                 break;
             } else {
