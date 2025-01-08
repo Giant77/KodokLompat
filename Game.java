@@ -1,8 +1,8 @@
-import java.util.Scanner;
-import java.util.List;
-import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Game {
     private int i = 0; // iteration/position variable
@@ -10,9 +10,9 @@ public class Game {
     private int replay; // play again input variabel
     private int countPlayAgain = 1; // count how many times games have been playe in a single instance
     private boolean isDataInputed = true;
-    private Scanner in = new Scanner(System.in);
-    private List<String> data = new ArrayList<>();
-    private Map<Integer, String> diffMap = new HashMap<>();
+    private final Scanner in = new Scanner(System.in);
+    private final List<String> data = new ArrayList<>();
+    private final Map<Integer, String> diffMap = new HashMap<>();
     {
         diffMap.put(1, "Easy");
         diffMap.put(2, "Normal");

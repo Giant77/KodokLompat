@@ -7,8 +7,8 @@ public class Kotak {
     private int coinCount;
     private int point = 100;
     private final int boxSize = 300;
-    private int[] boxes = new int[boxSize];
-    private Scanner in = new Scanner(System.in);
+    private final int[] boxes = new int[boxSize];
+    private final Scanner in = new Scanner(System.in);
 
     /**
      * Menginisialisasikan kotak dengan memanggil beberapa method
@@ -23,6 +23,7 @@ public class Kotak {
 
     /**
      * Mengembalikan banyaknya kotak
+     * 
      * @return banyak kotak
      */
     public int getBoxSize() {
@@ -30,7 +31,8 @@ public class Kotak {
     }
 
     /**
-     * Mengubah point dengan menambahkan point dengan parameter 
+     * Mengubah point dengan menambahkan point dengan parameter
+     * 
      * @param point point yang ditambahkan
      */
     public void alterPoint(int point) {
@@ -39,6 +41,7 @@ public class Kotak {
 
     /**
      * Megembalikan point saat ini
+     * 
      * @return point
      */
     public int getPoint() {
@@ -72,6 +75,7 @@ public class Kotak {
 
     /**
      * Mengembalikan tingkat kesulitan saat ini
+     * 
      * @return tingkat kesulitan
      */
     public int getDiff() {
@@ -80,6 +84,7 @@ public class Kotak {
 
     /**
      * Mengembalikan isi dari kotak sesuai dengan posisi parameter
+     * 
      * @param i posisi saat ini
      * @return isi dari kotak pada posisi i
      */
@@ -88,8 +93,9 @@ public class Kotak {
     }
 
     /**
-     * Mengubah isi dari kotak menjadi kosong, 
+     * Mengubah isi dari kotak menjadi kosong,
      * karena isi dari kotak telah ditemukan
+     * 
      * @param i posisi saat ini
      */
     public void setBoxes(int i) {
@@ -97,7 +103,7 @@ public class Kotak {
     }
 
     /**
-     * Mengatur banyak koin dan monster yang ada pada permainan 
+     * Mengatur banyak koin dan monster yang ada pada permainan
      * tergantung dari tingkat kesulitan yang dipilih
      */
     public void setKotak() {
@@ -122,7 +128,7 @@ public class Kotak {
 
     /**
      * Merandomisasi posisi koin, dan memastikan
-     *  bahwa kotak belum terisi sebelumnya
+     * bahwa kotak belum terisi sebelumnya
      */
     public void setPosCoin() {
         int i = 0;
@@ -131,7 +137,7 @@ public class Kotak {
 
         while (i < coinCount) {
             tmp = rand.nextInt(boxSize - 0);
-            if (boxes[tmp] == 0){
+            if (boxes[tmp] == 0) {
                 boxes[tmp]++;
                 i++;
             }
@@ -139,7 +145,7 @@ public class Kotak {
     }
 
     /**
-     * Merandomisasi posisi monster, dan memastikan 
+     * Merandomisasi posisi monster, dan memastikan
      * bahwa kotak belum terisi sebelumnya
      */
     public void setPosMons() {
@@ -149,7 +155,7 @@ public class Kotak {
 
         while (i < monsCount) {
             tmp = rand.nextInt(boxSize - 0);
-            if (boxes[tmp] == 0){
+            if (boxes[tmp] == 0) {
                 boxes[tmp]--;
                 i++;
             }

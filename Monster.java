@@ -12,8 +12,10 @@ public class Monster extends Item {
 
     /**
      * Mengembalikan point randomisasi untuk monster
+     * 
      * @return point random
      */
+    @Override
     public int getRandomizedPoint() {
         Random random = new Random();
         int randPoint = (random.nextInt(15 - 1) + 1) * -1;
@@ -22,11 +24,12 @@ public class Monster extends Item {
 
     /**
      * Mensimulasikan proses bertemu monster
+     * 
      * @return point monster
      */
     public int monsEncounter() {
         monsPoint = getRandomizedPoint();
-    
+
         if (monsPoint >= -5) {
             System.out.println("\nHmmm?!\nAnda bertemu Monster kroco");
         } else if (monsPoint < -5 && monsPoint >= -10) {
@@ -37,5 +40,5 @@ public class Monster extends Item {
         System.out.println("Point anda berkurang " + monsPoint);
         return monsPoint;
     }
-    
+
 }

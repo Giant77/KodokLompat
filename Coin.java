@@ -12,8 +12,10 @@ public class Coin extends Item {
 
     /**
      * Mengembalikan point randomisasi untuk coin
+     * 
      * @return point random
      */
+    @Override
     public int getRandomizedPoint() {
         Random random = new Random();
         int randcoinPoint = random.nextInt(15 - 1) + 1;
@@ -22,11 +24,12 @@ public class Coin extends Item {
 
     /**
      * Mensimulasikan proses bertemu coin
+     * 
      * @return point coin
      */
-    public int coinEncounter (){
+    public int coinEncounter() {
         coinPoint = getRandomizedPoint();
-        
+
         if (coinPoint <= 5) {
             System.out.println("\nHmmm?!\nAnda menemukan Coin kecil");
         } else if (coinPoint > 5 && coinPoint <= 10) {
